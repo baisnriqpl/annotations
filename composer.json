@@ -1,5 +1,5 @@
 {
-    "name": "alex/annotations",
+    "name": "alex-chen/annotations",
     "description": "The php annotation",
     "type": "library",
     "require": {
@@ -8,7 +8,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Alex",
+            "name": "AlexChen",
             "email": "279029419@qq.com"
         }
     ],
@@ -17,6 +17,5 @@
             "Alex\\Annotations\\": "src/"
         }
     },
-    "minimum-stability": "dev",
-    "require": {}
+    "minimum-stability": "dev"
 }

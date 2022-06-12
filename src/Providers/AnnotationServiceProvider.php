@@ -40,7 +40,7 @@ class AnnotationServiceProvider extends ServiceProvider
         $allDir = [];
         $allFile = [];
 
-        $basePath = app_path();
+        $basePath = base_path() . '/app';
         if ($basePath === false) {
             return false;
         }

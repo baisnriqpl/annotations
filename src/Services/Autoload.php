@@ -17,9 +17,10 @@
             foreach ($params as $param) {
                 if ($type = $param->getType()) {
                     $name = $type->getName();
-                    if (class_exists($name)) {
-                        $data[$param->getPosition()] = new $name;
+                    if (! class_exists($name)) {
+                        throw new \Exception($name . '不存在!');
                     }
+                    $data[$param->getPosition()] = app()->make($name);
                 }
             }
             $method->setAccessible(true);

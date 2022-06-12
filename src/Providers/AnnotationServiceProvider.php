@@ -26,9 +26,8 @@ class AnnotationServiceProvider extends ServiceProvider
 
     protected function scanFileGetAnnotations($classes)
     {
-        $bind = require '../Config/bind.php';
+        $bind = require __DIR__ . '/../Config/Bind.php';
         Annotations::bind($bind);
-
         foreach ($classes as $class) {
             $this->app->resolving($class, function ($object) use ($class)  {
                 Annotations::register($object);

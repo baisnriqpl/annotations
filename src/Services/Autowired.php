@@ -13,10 +13,11 @@ class Autowired implements ServicePropertyInterface
     {
         if ($type = $property->getType()) {
             $name = $type->getName();
-            if (class_exists($name)) {
-                $property->setAccessible(true);
-                $property->setValue($class, new $name);
+            if (! class_exists($name)) {
+                throw new \Exception($name . '不存在!');
             }
+            $property->setAccessible(true);
+            $property->setValue($class, app()->make($name));
         }
     }
 }

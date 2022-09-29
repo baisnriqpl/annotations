@@ -56,7 +56,7 @@
                 }
             }
         }
-
+        
         public static function extends(array $binds)
         {
             self::$binds = array_merge(self::$binds, $binds);

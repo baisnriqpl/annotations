@@ -1,6 +1,7 @@
 <?php
 
 namespace Alex\Annotations\Services\Validate;
+
 use Alex\Annotations\Interfaces\ServicePropertyInterface;
 use Attribute;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,7 @@ class Length extends Validate implements ServicePropertyInterface
         Validator::extend($this->rule, function($attribute, $value, $parameters) {
             $type = gettype($value);
             $length = $type != 'array' ? strlen((string)$value) : count($value);
-            return ! $value || ($length >= $this->min && $length <= $this->max);
+            return $type != 'array' || ($length >= $parameters[0] && ($parameters[1] == 0 || $length <= $parameters[1]));
         });
     }
 

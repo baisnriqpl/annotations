@@ -4,13 +4,14 @@ namespace Alex\Annotations\Services\Validate;
 
 use Alex\Annotations\Interfaces\ServicePropertyInterface;
 use Attribute;
+use Illuminate\Support\Facades\Validator;
 use ReflectionProperty;
 use Exception;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
-class IsInteger extends Validate implements ServicePropertyInterface
+class AlphaDash extends Validate implements ServicePropertyInterface
 {
-    protected string $rule = 'integer';
+    protected string $rule = 'alpha_dash';
 
     public function __construct(string $message = '')
     {

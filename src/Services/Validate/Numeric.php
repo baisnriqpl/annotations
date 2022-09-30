@@ -3,15 +3,15 @@
 namespace Alex\Annotations\Services\Validate;
 
 use Alex\Annotations\Interfaces\ServicePropertyInterface;
-use Attribute;
 use ReflectionProperty;
+use Attribute;
 use Exception;
 
 #[Attribute(Attribute::TARGET_PROPERTY)]
-class IsInteger extends Validate implements ServicePropertyInterface
+class Numeric extends Validate implements ServicePropertyInterface
 {
-    protected string $rule = 'integer';
-
+    protected string $rule = 'numeric';
+    
     public function __construct(string $message = '')
     {
         $this->message = $message;
@@ -20,6 +20,7 @@ class IsInteger extends Validate implements ServicePropertyInterface
     public function handle(ReflectionProperty $property, object $class)
     {
         $name = $property->getName();
+        $value = $this->request->$name;
         $messages = [];
         if ($this->message) {
             $messages[$name . '.' . $this->rule] = $this->message;

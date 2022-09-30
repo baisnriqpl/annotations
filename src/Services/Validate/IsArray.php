@@ -1,6 +1,7 @@
 <?php
 
 namespace Alex\Annotations\Services\Validate;
+
 use Alex\Annotations\Interfaces\ServicePropertyInterface;
 use Attribute;
 use ReflectionProperty;
@@ -23,22 +24,20 @@ class IsArray extends Validate implements ServicePropertyInterface
     {
         $name = $property->getName();
         $value = $this->request->$name;
-        $rules = [];
         $messages = [];
-        if (gettype($value) == 'array') {
-            $rules = [
-                $name => $this->rule
-            ];
-            $messages = [
-                $name . '.' . $this->rule => $this->message ?: ($name . ' type must be array.')
-            ];
-            foreach ($this->rules as $field => $rule) {
-                $rules[$name . '.' . $field] = $rule;
-            }
-            foreach ($this->messages as $field => $message) {
-                $messages[$name . '.' . $field] = $message;
-            }
+        $rules = [
+            $name => $this->rule
+        ];
+        $messages = [
+            $name . '.' . $this->rule => $this->message ?: ($name . ' type must be array.')
+        ];
+        foreach ($this->rules as $field => $rule) {
+            $rules[$name . '.' . $field] = $rule;
         }
+        foreach ($this->messages as $field => $message) {
+            $messages[$name . '.' . $field] = $message;
+        }
+
         return [$rules, $messages];
     }
 }

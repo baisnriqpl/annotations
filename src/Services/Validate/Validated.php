@@ -1,6 +1,7 @@
 <?php
 
 namespace Alex\Annotations\Services\Validate;
+
 use Alex\Annotations\Interfaces\ServiceClassInterface;
 use Attribute;
 use ReflectionClass;
@@ -13,6 +14,9 @@ class Validated implements ServiceClassInterface
 {
     protected static array $binds = [
         Required::class,
+        RequiredIf::class,
+        RequiredWith::class,
+        RequiredWithout::class,
         Length::class,
         IsInteger::class,
         IsString::class,
@@ -20,7 +24,16 @@ class Validated implements ServiceClassInterface
         Regex::class,
         Confirmation::class,
         Min::class,
-        Max::class
+        Max::class,
+        In::class,
+        Numeric::class,
+        Between::class,
+        AlphaDash::class,
+        Unique::class,
+        Exists::class,
+        Gt::class,
+        Lt::class,
+        Email::class
     ];
 
     public function handle(ReflectionClass $reflection, Object $class, ReflectionAttribute $attr)
@@ -47,22 +60,20 @@ class Validated implements ServiceClassInterface
                         }
                         $messages = array_merge($messages, $message);
                     }
-                    $name = $property->getName();
-                    $value = $request->$name;
-                    if ($value !== null) {
-                        $data[] = [
-                            'property' => $property,
-                            'value' => $value
-                        ];
-                    }
                 }
             }
+            $name = $property->getName();
+            if ($request->has($name)) {
+                $data[] = [
+                    'property' => $property,
+                    'value' => $request->get($name)
+                ];
+            }
         }
-
         if (count($rules)) {
             $validate = Validator::make($request->all(), $rules, $messages);
             if ($validate->fails()) {
-                throw new Exception($validate->errors()->first());
+                throw new ValidateException($validate->errors()->first());
             }
         }
         foreach ($data as $value) {

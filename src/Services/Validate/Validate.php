@@ -1,6 +1,7 @@
 <?php
 
 namespace Alex\Annotations\Services\Validate;
+
 use Illuminate\Http\Request;
 
 class Validate

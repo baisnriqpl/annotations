@@ -6,8 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AnnotationServiceProvider extends ServiceProvider
 {
-    protected $resolved = [];
-
     public function boot()
     {
         $this->scanFileGetAnnotations($this->getClasses());
@@ -32,10 +30,7 @@ class AnnotationServiceProvider extends ServiceProvider
         Annotations::bind($bind);
         foreach ($classes as $class) {
             $this->app->resolving($class, function ($object) use ($class) {
-                if (! in_array($object::class, $this->resolved)) {
-                    $this->resolved[] = $object::class;
-                    Annotations::register($object);
-                }
+                Annotations::register($object);
             });
         }
     }

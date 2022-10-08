@@ -13,9 +13,9 @@ use Exception;
 class Exists extends Validate implements ServicePropertyInterface
 {
     protected string $rule = 'exists';
-    protected string $param = '';
+    protected string|object $param = '';
 
-    public function __construct(string $rule = '', string $message = '')
+    public function __construct(string|object $rule = '', string $message = '')
     {
         $this->message = $message;
         $this->param = $rule;

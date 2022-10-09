@@ -33,7 +33,8 @@ class Validated implements ServiceClassInterface
         Exists::class,
         Gt::class,
         Lt::class,
-        Email::class
+        Email::class,
+        Custom::class
     ];
 
     public function handle(ReflectionClass $reflection, Object $class, ReflectionAttribute $attr)

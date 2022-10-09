@@ -64,10 +64,13 @@ class Validated implements ServiceClassInterface
             }
             $name = $property->getName();
             if ($request->has($name)) {
-                $data[] = [
-                    'property' => $property,
-                    'value' => $request->get($name)
-                ];
+                $value = $request->get($name);
+                if ($value !== null) {
+                    $data[] = [
+                        'property' => $property,
+                        'value' => $request->get($name)
+                    ];
+                }
             }
         }
         if (count($rules)) {
